@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controle Financeiro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>Controle Financeiro</h1>
+    <div class="mes">
+      <button type="button" id="mesAnterior" aria-label="Mês anterior">‹</button>
+      <input type="month" id="mesSelecionado" aria-label="Mês">
+      <button type="button" id="mesProximo" aria-label="Próximo mês">›</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="resumo" aria-label="Resumo do mês">
+      <div class="card"><span>Receitas</span><strong id="totalReceitas" class="pos">R$ 0,00</strong></div>
+      <div class="card"><span>Despesas</span><strong id="totalDespesas" class="neg">R$ 0,00</strong></div>
+      <div class="card"><span>Saldo do mês</span><strong id="saldoMes">R$ 0,00</strong></div>
+      <div class="card"><span>Saldo acumulado</span><strong id="saldoGeral">R$ 0,00</strong></div>
+    </section>
+
+    <div class="grade">
+      <section class="painel">
+        <h2>Novo lançamento</h2>
+        <form id="formLancamento" autocomplete="off">
+          <div class="tipo" role="radiogroup" aria-label="Tipo">
+            <label><input type="radio" name="tipo" value="despesa" checked> Despesa</label>
+            <label><input type="radio" name="tipo" value="receita"> Receita</label>
+          </div>
+          <label>Descrição
+            <input type="text" id="descricao" required maxlength="80" placeholder="Ex.: Aluguel">
+          </label>
+          <div class="linha">
+            <label>Valor (R$)
+              <input type="number" id="valor" required min="0.01" step="0.01" inputmode="decimal" placeholder="0,00">
+            </label>
+            <label>Data
+              <input type="date" id="data" required>
+            </label>
+          </div>
+          <label>Categoria
+            <input type="text" id="categoria" list="listaCategorias" maxlength="40" placeholder="Ex.: Moradia">
+            <datalist id="listaCategorias"></datalist>
+          </label>
+          <button type="submit" class="primario">Adicionar</button>
+        </form>
+      </section>
+
+      <section class="painel">
+        <h2>Calculadora de ICMS</h2>
+        <form id="formIcms" autocomplete="off">
+          <div class="linha">
+            <label>UF
+              <select id="uf"></select>
+            </label>
+            <label>Alíquota
+              <input type="text" id="aliquota" readonly>
+            </label>
+          </div>
+          <label>Valor (R$)
+            <input type="number" id="valorBase" min="0" step="0.01" inputmode="decimal" placeholder="0,00">
+          </label>
+          <dl class="icms">
+            <div><dt>ICMS contido no valor</dt><dd id="icmsContido">R$ 0,00</dd></div>
+            <div><dt>Valor sem ICMS</dt><dd id="valorLiquido">R$ 0,00</dd></div>
+            <div><dt>Preço para embutir ICMS no valor</dt><dd id="precoBruto">R$ 0,00</dd></div>
+          </dl>
+          <p class="nota">O ICMS é calculado “por dentro”: o imposto faz parte do preço.
+            O preço para embutir é valor ÷ (1 − alíquota).</p>
+          <button type="button" id="lancarIcms" class="secundario">Lançar ICMS contido como despesa</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="painel">
+      <h2>Despesas por categoria</h2>
+      <ul id="porCategoria" class="barras"></ul>
+    </section>
+
+    <section class="painel">
+      <div class="cabecalho">
+        <h2>Lançamentos do mês</h2>
+        <div class="acoes">
+          <button type="button" id="exportar" class="secundario">Exportar CSV</button>
+          <label class="secundario botao-arquivo">Importar CSV
+            <input type="file" id="importar" accept=".csv,text/csv" hidden>
+          </label>
+        </div>
+      </div>
+      <div class="tabela-wrap">
+        <table>
+          <thead>
+            <tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="num">Valor</th><th></th></tr>
+          </thead>
+          <tbody id="tabela"></tbody>
+        </table>
+      </div>
+      <p id="vazio" class="vazio">Nenhum lançamento neste mês.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

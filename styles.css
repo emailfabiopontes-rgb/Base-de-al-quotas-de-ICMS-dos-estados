@@ -1,0 +1,173 @@
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --text: #1d2330;
+  --muted: #646d7e;
+  --border: #dde1e8;
+  --accent: #2f5bd3;
+  --accent-text: #ffffff;
+  --pos: #18794e;
+  --neg: #c2362f;
+  --bar: #2f5bd3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151b;
+    --surface: #1b1f27;
+    --text: #e6e9ef;
+    --muted: #9aa3b2;
+    --border: #2d333f;
+    --accent: #7096ff;
+    --accent-text: #0d1220;
+    --pos: #4cc38a;
+    --neg: #ff7b72;
+    --bar: #7096ff;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+h1 { font-size: 1.4rem; margin: 0; }
+h2 { font-size: 1.05rem; margin: 0 0 12px; }
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
+  display: grid;
+  gap: 16px;
+}
+
+.mes { display: flex; gap: 6px; align-items: center; }
+.mes button { width: 36px; padding: 6px 0; }
+
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.card, .painel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.card span { display: block; color: var(--muted); font-size: 0.85rem; }
+.card strong { font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+
+.pos { color: var(--pos); }
+.neg { color: var(--neg); }
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+form { display: grid; gap: 12px; }
+
+label { display: grid; gap: 4px; font-size: 0.85rem; color: var(--muted); }
+
+.linha { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+input, select, button {
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-width: 0;
+}
+
+input:focus, select:focus, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.tipo { display: flex; gap: 16px; }
+.tipo label { display: flex; align-items: center; gap: 6px; color: var(--text); font-size: 0.95rem; }
+
+button, .botao-arquivo { cursor: pointer; }
+
+.primario {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.secundario, .botao-arquivo {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.icms { margin: 0; display: grid; gap: 6px; }
+.icms div { display: flex; justify-content: space-between; gap: 8px; }
+.icms dt { color: var(--muted); }
+.icms dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.cabecalho h2 { margin: 0; }
+.acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.tabela-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 500; font-size: 0.85rem; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td .excluir {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  padding: 2px 6px;
+}
+td .excluir:hover { color: var(--neg); }
+
+.vazio { color: var(--muted); margin: 12px 0 0; }
+.nota { color: var(--muted); font-size: 0.8rem; margin: 0; }
+
+.barras { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.barras li { display: grid; gap: 4px; }
+.barras .rotulo { display: flex; justify-content: space-between; gap: 8px; font-size: 0.9rem; }
+.barras .rotulo span:last-child { font-variant-numeric: tabular-nums; color: var(--muted); }
+.barras .trilho { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+.barras .preenchido { height: 100%; background: var(--bar); border-radius: 4px; }
+
+@media (max-width: 480px) {
+  .linha { grid-template-columns: 1fr; }
+  th:nth-child(3), td:nth-child(3) { display: none; }
+}
